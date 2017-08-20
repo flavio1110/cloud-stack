@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  registry:
+    image: registry:2
+    networks:
+      - mynet
+    volumes:
+    - $HOME/tooling:/credentials
+    environment:
+      - REGISTRY_STORAGE=gcs
+      - REGISTRY_STORAGE_GCS_KEYFILE=credentials/gcs-credentials.json
+      - REGISTRY_STORAGE_GCS_BUCKET=fsilvame-registry
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        
+networks:
+  mynet:
+    external: true
+
