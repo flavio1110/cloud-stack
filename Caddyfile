@@ -1,6 +1,7 @@
 fsilva.me {
   browse
 }
+
 app.fsilva.me {
   proxy / app:3000 {
     transparent
@@ -15,7 +16,7 @@ drone.fsilva.me {
 }
 
 registry.fsilva.me {
-  basicauth / registry ${basicAuthPassword}
+  basicauth / registry ${REGISTRY_PASSWORD}
   timeouts 0
   proxy / registry:5000 {
     transparent

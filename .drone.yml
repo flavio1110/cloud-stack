@@ -1,0 +1,17 @@
+pipeline:
+  deploy-services: 
+    image: docker:17.04.0-ce    
+    when:
+      event: push
+      branch: [master]
+    environment:
+    - REGISTRY_PASSWORD=${REGISTRY_PASSWORD}
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - envsubst < "Caddyfile" > "Caddyfile"
+      - cp Caddyfile $HOME/Caddyfile
+      - docker image prune -af      
+      - docker stack deploy -c caddy-compose.yml proxy
+    secrets: [ REGISTRY_PASSWORD ]
