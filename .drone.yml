@@ -1,6 +1,6 @@
 pipeline:
   deploy-services: 
-    image: docker:17.04.0-ce    
+    image: ubuntu:16.04    
     when:
       event: push
       branch: [master]
