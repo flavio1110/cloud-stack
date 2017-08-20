@@ -1,1 +1,23 @@
-fsilva.me
+fsilva.me {
+  browse
+}
+app.fsilva.me {
+  proxy / app:3000 {
+    transparent
+  }
+}
+
+drone.fsilva.me {
+  proxy / drone-server:8000 {
+    websocket
+    transparent
+  }
+}
+
+registry.fsilva.me {
+  basicauth / registry ${basicAuthPassword}
+  timeouts 0
+  proxy / registry:5000 {
+    transparent
+  }
+}

@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  drone-server:
+    image: drone/drone:0.7.1
+    ports:
+      - 8080:8000
+    networks:
+      - mynet
+    volumes:
+      - /var/lib/drone:/var/lib/drone/
+    environment:
+      - DRONE_OPEN=false
+      - DRONE_ADMIN=flavio1110
+      - DRONE_HOST=https://drone.fsilva.me
+      - DRONE_GITHUB=true
+      - DRONE_GITHUB_CLIENT=${DRONE_GITHUB_CLIENT}
+      - DRONE_GITHUB_SECRET=${DRONE_GITHUB_SECRET}
+      - DRONE_SECRET=${DRONE_SECRET}
+      - DRONE_DEBUG=false      
+    deploy:
+      replicas: 1      
+      restart_policy:
+        condition: any
+
+  drone-agent:
+    image: drone/drone:0.7.1
+    command: agent
+    depends_on: [ drone-server ]
+    networks:
+      - mynet
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_SERVER=ws://drone-server:8000/ws/broker
+      - DRONE_SECRET=${DRONE_SECRET}
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+networks:
+  mynet:
+    external: true
