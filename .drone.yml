@@ -1,5 +1,5 @@
 pipeline:
-  Deploy-Caddyfile: 
+  deploy-caddyfile: 
     image: flavio1110/ubuntu-util   
     when:
       event: push
@@ -16,7 +16,7 @@ pipeline:
       - docker image prune -af      
       - docker stack deploy -c caddy-compose.yml proxy
     secrets: [ REGISTRY_PASSWORD ]
-  Deploy-CaddyService:
+  deploy-caddyService:
     image: docker:17.04.0-ce 
       when:
         event: push
