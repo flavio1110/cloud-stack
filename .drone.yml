@@ -1,6 +1,6 @@
 pipeline:
   deploy-services: 
-    image: ubuntu:16.04    
+    image: flavio1110/ubuntu-util   
     when:
       event: push
       branch: [master]

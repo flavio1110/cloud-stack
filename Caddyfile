@@ -2,6 +2,13 @@ fsilva.me {
   browse
 }
 
+restcountries.fsilva.me {
+  gzip
+  proxy / api:80 {
+    transparent
+  }
+}
+
 app.fsilva.me {
   proxy / app:3000 {
     transparent
