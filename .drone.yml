@@ -19,11 +19,11 @@ pipeline:
   
   deploy-caddyService:
     image: docker:17.04.0-ce 
-      when:
-        event: push
-        branch: [master]
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-      commands:
-        - docker image prune -af      
-        - docker stack deploy -c caddy-compose.yml proxy
+    when:
+      event: push
+      branch: [master]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - docker image prune -af      
+      - docker stack deploy -c caddy-compose.yml proxy
