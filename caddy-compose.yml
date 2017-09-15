@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3'
 
 services:
   caddy:
@@ -20,6 +20,9 @@ services:
     deploy:
       restart_policy:
         condition: any
+      placement:
+        constraints:
+          - node.labels.stack == manager
 
 networks:
   mynet:
