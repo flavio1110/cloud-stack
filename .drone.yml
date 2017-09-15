@@ -11,7 +11,7 @@ pipeline:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
       - envsubst < "Caddyfile"
-      - cp Caddyfile $HOME/Caddyfile
+      - cp Caddyfile $HOME/tooling/Caddyfile
       - docker image prune -af      
       - docker stack deploy -c caddy-compose.yml proxy
     secrets: [ REGISTRY_PASSWORD ]
