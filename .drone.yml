@@ -9,9 +9,10 @@ pipeline:
     privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/tooling/Caddyfile:/etc/Caddyfile
     commands:
       - envsubst < "Caddyfile"
-      - cp Caddyfile $HOME/tooling/Caddyfile
+      - cp Caddyfile /etc/Caddyfile
       - docker image prune -af      
       - docker stack deploy -c caddy-compose.yml proxy
     secrets: [ REGISTRY_PASSWORD ]
