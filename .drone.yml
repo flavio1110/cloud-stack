@@ -16,6 +16,7 @@ pipeline:
       - docker image prune -af      
       - docker stack deploy -c caddy-compose.yml proxy
     secrets: [ REGISTRY_PASSWORD ]
+  
   deploy-caddyService:
     image: docker:17.04.0-ce 
       when:
