@@ -16,7 +16,7 @@ services:
       - /srv:/srv
       - $HOME/.caddy:/etc/caddycerts
       - /var/run/docker.sock:/var/run/docker.sock
-      - $HOME/tooling/Caddyfile:/etc/Caddyfile
+      - /etc/Caddyfile:/etc/Caddyfile
     deploy:
       restart_policy:
         condition: any
