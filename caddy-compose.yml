@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 
 services:
   caddy:
@@ -16,14 +16,16 @@ services:
       - /srv:/srv
       - $HOME/.caddy:/etc/caddycerts
       - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/Caddyfile:/etc/Caddyfile
+      - $HOME/tooling/Caddyfile:/etc/Caddyfile
     deploy:
       restart_policy:
         condition: any
-      placement:
+    placement:
         constraints:
           - node.labels.stack == manager
 
 networks:
   mynet:
     external: true
+
+#docker run -d -p 80:80 -p 443:443 -p 2015:2015 --network=mynet -e CADDYPATH=/etc/caddycerts -v /srv:/srv -v $HOME/.caddy:/etc/caddycerts -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/tooling/Caddyfile:/etc/Caddyfile abiosoft/caddy
